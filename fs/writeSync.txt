@@ -1,0 +1,2 @@
+hi i am wrote by js
+sync
