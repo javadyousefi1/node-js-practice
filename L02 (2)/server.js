@@ -11,6 +11,8 @@ const server = http.createServer((req, res) => {
     getCourseController.create(req, res)
   } else if (req.url.match(/\/api\/courses\/[0-9]+/) && req.method === "PUT") {
     getCourseController.update(req, res)
+  } else if (req.url.match(/\/api\/courses\/[0-9]+/) && req.method === "DELETE") {
+    getCourseController.remove(req, res)
   }
   else {
     res.writeHead(404, { "Content-Type": "application/json" });

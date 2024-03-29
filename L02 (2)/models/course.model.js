@@ -57,8 +57,25 @@ async function update(id, payload) {
   })
 }
 
+
+async function remove(id) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(`${process.cwd()}/data/course.json`, function (err, data) {
+      const json = JSON.parse(data)
+
+      const filteredData = json.filter(item => item.id != id)
+      fs.writeFile(`${process.cwd()}/data/course.json`, JSON.stringify(filteredData), (err) => {
+        if (err) reject({ message: "fail to write file" })
+        else resolve({ message: "removed succesfully" })
+      })
+
+    })
+  })
+}
+
+
 const courseModel = {
-  find, findById, create, update
+  find, findById, create, update, remove
 };
 
 module.exports = courseModel;

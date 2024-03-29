@@ -74,6 +74,31 @@ async function update(req, res) {
   }
 }
 
-const getCourseController = { get, getById, create, update };
+
+async function remove(req, res) {
+  try {
+    const paramsId = req.url.split("/")[3]
+    const avalibleCourse = await courseModel.findById(paramsId)
+
+    console.log(avalibleCourse)
+
+    if (!avalibleCourse) {
+      res.writeHead(404, { "Content-Type": "application/json" })
+      res.write(JSON.stringify({ message: "course not found on delete service" }))
+      res.end()
+      return
+    }
+
+    const test = await courseModel.remove(paramsId)
+    res.writeHead(200, { "Content-Type": "application/json" })
+    res.write(JSON.stringify({ message: "course deleted succ" }))
+    res.end()
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const getCourseController = { get, getById, create, update, remove };
 
 module.exports = getCourseController;
